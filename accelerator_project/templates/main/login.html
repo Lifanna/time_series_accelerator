@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src='/static/js/login.js'></script>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-4 offset-md-4 justify-content-center">
+                <form method="POST">
+                    <h3 id="passwordHeader" class="text-center text-white mb-4">Вход в систему</h3>
+                    <h3 id="gestureHeader" class="text-center text-white mb-4 d-none">Вход по жесту</h3>
+                    {% csrf_token %}
+                    <div id="gestureErrors">
+                        
+                    </div>
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="text-danger my-3">{{ error|escape }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="text-danger">{{ error|escape }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <input type="text" id="login" class="form-control mb-3" name="username" placeholder="Логин">
+                    <input type="password" id="password" class="form-control mb-3" name="password" placeholder="Пароль">
+                    <input type="checkbox" id="loginSwitch" checked data-toggle="toggle" data-on="По жесту" data-off="По паролю" data-onstyle="success" data-offstyle="primary">
+                    <input type="submit" id="loginButton" class="btn btn-primary btn-block mt-2" value="Войти">
+                    <input type="button" id="loginGestureButton" class="btn btn-success btn-block d-none" value="Войти">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

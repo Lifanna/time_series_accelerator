@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3 justify-content-center">
+                {% for error in field.errors %}
+                    <span class="help-block text-danger">{{ error }}</span>
+                {% endfor %}
+                <form method="post" class="form-signin">
+                    {% csrf_token %}
+                    <h3 class="text-white text-center mt-4">Новый пользователь</h3>
+
+                    {% for field in form.visible_fields %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {% render_field field class="form-control" placeholder=field.label %}
+                                {% for error in field.errors %}
+                                    <span class="help-block text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

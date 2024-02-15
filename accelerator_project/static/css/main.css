@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --clr: #c8ff00;
+    --mainButtonWidth: 100%;
+    --mrd: 10px;
+    --mld: 0px;
+    --chartWidth: 500px
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    /*background: #e0e0e0;*/
+}
+
+.bg-dark-radial {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/*
+    red - #ff1867
+    darkBlue - #1b2735 (-> #090a0f)
+    buttonColor - #151D28
+    green - #9bff1e
+*/
+.buttons {
+    position: relative;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.mainButton {
+    /*position: relative;
+    top: var(--offset);*/
+    padding: 50px 100px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 3em;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    border: none;
+    color: #151D28;
+    cursor: pointer;
+    background-color: var(--clr);
+}
+
+.mainButton:active {
+    transform: scale(0.96);
+}
+
+/*=================================================================================*/
+
+/*=================================================================================*/
+
+.downloadButton {
+    position: relative;
+    padding: 50px 100px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 3em;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    border: none;
+    color: #151D28;
+    cursor: pointer;
+    background-color: var(--clr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.7s;
+}
+
+.downloadButton i {
+    margin-right: var(--mrd);
+    margin-left: var(--mld);
+}
+
+.downloadButton:active {
+    transform: scale(0.96);
+}
+
+.chart {
+    width: var(--chartWidth);
+    padding-bottom: 70px;
+}
+
+/*=================================================================================*/
+
+/*=================================================================================*/
+
+.inputBox {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #394164;
+    background: transparent;
+    border-radius: 15px;
+    outline: none;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    letter-spacing: 0.18em;
+    transition: 0.5s;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 15px;
+    pointer-events: none;
+    font-size: 1.5em;
+    letter-spacing: 0.18em;
+    color: #394164;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputBox input:valid~span,
+.inputBox input:focus~span {
+    color: #394164;
+    transform: translateX(20px) translateY(-10px);
+    font-size: 1em;
+    padding: 0 10px;
+    background: #c8ff00;
+    border-left: 1px solid #c8ff00;
+    border-right: 1px solid #c8ff00;
+    letter-spacing: 0.2em;
+    border-radius: 6px;
+}
+
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid #c8ff00;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 30px;
+    background-color: #4caf50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}

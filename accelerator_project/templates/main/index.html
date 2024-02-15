@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-12 col-md-4 offset-md-4 bg-blue mt-4">
+        <div class="row">
+            <div style="display: flex; flex-direction: column">
+                <div class="chart" style="display: none">
+                    <canvas id="AccelerationChart"></canvas>
+                    <div style="padding: 50px"></div>
+                    <canvas id="GyroChart"></canvas>
+                </div>
+                <div class="progress-container mb-3">
+                    <div class="progress-bar d-none" id="myProgressBar"></div>
+                </div>
+                <div id="buttonsSection" class="buttons" style="display: flex; flex-direction: column">
+                    <button class="downloadButton" style="position: relative; display: none">
+                        <i class="fa-solid fa-download"></i>Upload
+                    </button>
+                    <button class="mainButton">START</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+{% endblock %}
