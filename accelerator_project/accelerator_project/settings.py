@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sslserver',
     'widget_tweaks',
     'rest_framework',
     'main',
@@ -153,3 +154,10 @@ MEDIA_URL='/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "main.CustomUser"
+
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# # Пути к SSL-сертификату и ключу
+# SSL_CERTIFICATE_PATH = 'certificate.crt'
+# SSL_KEY_PATH = 'private.key'

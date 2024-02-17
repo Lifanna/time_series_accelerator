@@ -11,6 +11,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from main.model_instance import ModelInstance
+from django.db.models import Max
 
 
 @login_required
@@ -62,6 +63,8 @@ class UserSeriesCreateAPIView(drf_views.APIView):
 
         user = models.CustomUser.objects.get(username=username)
 
+        max_gesture_index = models.UserSeries.objects.filter(user=user).aggregate(Max('gesture_index'))['gesture_index__max'] or 0
+
         for entry in data:
             instance = models.UserSeries.objects.create(
                 user=user,
@@ -70,7 +73,8 @@ class UserSeriesCreateAPIView(drf_views.APIView):
                 accelerometer_3=entry['z_acc'],
                 hyroscope_1=entry['x_rot'],
                 hyroscope_2=entry['y_rot'],
-                hyroscope_3=entry['z_rot']
+                hyroscope_3=entry['z_rot'],
+                gesture_index=max_gesture_index + 1,
             )
             created_instances.append(instance)
 
@@ -83,6 +87,7 @@ class UserSeriesTestAPIView(drf_views.APIView):
         data = request.data
 
         username = request.data.get("username")
+        gestures_count = request.data.get("gestures_count")
 
         for entry in data:
             pass
@@ -98,8 +103,11 @@ class UserSeriesTestAPIView(drf_views.APIView):
 
         success = False
         model_instance = ModelInstance()
-        success = model_instance.predict(data, username)
-        if success == True:
+        success, status_text = model_instance.predict(data, username, gestures_count)
+
+        if success == True and status_text == "":
             return Response(status=status.HTTP_200_OK)
+        elif success == False and status_text == "Недостаточно данных для обучения":
+            return Response({"message": status_text}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)

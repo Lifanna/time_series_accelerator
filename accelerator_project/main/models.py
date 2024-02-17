@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -77,6 +78,10 @@ class UserSeries(models.Model):
     hyroscope_2 = models.FloatField("Гироскоп 2")
 
     hyroscope_3 = models.FloatField("Гироскоп 3")
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    gesture_index = models.PositiveIntegerField("Порядковый номер жеста", default=0)
 
     def __str__(self):
         return str(self.pk) + " / " + self.user.username

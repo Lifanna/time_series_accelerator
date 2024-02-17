@@ -40,6 +40,7 @@ button.addEventListener("click", e => {
         button.classList.remove("animate")
     }, 600)
     startPage += 1
+
     if (startPage % 3 === 0) {                                                      // START PAGE
 
         gestureArray = []
@@ -144,7 +145,8 @@ downloadButton.addEventListener('click', e => {
         + currentDate.getSeconds()
     // const a = Object.assign(document.createElement('a'),
     //     {href, style: 'display:none', download: gestureName + '_' + userName + '_' + dateTime + '.json'})
-
+    rootEl.style.setProperty('--mrd', '0px')
+    rootEl.style.setProperty('--mld', '10px')
     let gesturesJson = [
         {
             "index": 0,
@@ -825,8 +827,7 @@ downloadButton.addEventListener('click', e => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 201) {
                 console.log(xhr.responseText);
-                rootEl.style.setProperty('--mrd', '0px')
-                rootEl.style.setProperty('--mld', '10px')
+                
                 downloadButton.classList.add("btn-success");
                 downloadButton.innerHTML = 'done<i class="fa-solid fa-check"></i>';
 

@@ -39,7 +39,11 @@ button.addEventListener("click", e => {
     setTimeout(() => {
         button.classList.remove("animate")
     }, 600)
+
     startPage += 1
+
+    document.getElementById("gesturesCountDiv").classList.add("d-none");
+
     if (startPage % 3 === 0) {                                                      // START PAGE
 
         gestureArray = []
@@ -52,7 +56,7 @@ button.addEventListener("click", e => {
         g_rot.fill(0)
 
         rootEl.style.setProperty('--clr', '#c8ff00')
-        button.innerText = 'start'
+        button.innerText = 'START TEST'
         chart.style.display = 'none'
         // inputBoxes.style.display = 'block'
         downloadButton.style.display = 'none'
@@ -210,29 +214,42 @@ downloadButton.addEventListener('click', e => {
                 document.getElementById("statusDiv").innerHTML = "Проверка успешно пройдена!"
 
                 button.classList.add("d-none");
-
-                backButton.innerHTML = "BACK";
-                backButton.setAttribute("type", "button");
-                backButton.classList.add("downloadButton");
-                backButton.style.setProperty('--clr', '#04d9ff')
-                document.getElementById("buttonsSection").append(backButton);
             } else {
-                downloadButton.innerHTML = 'Error occured<i class="fa-solid fa-times"></i>';
+                if (JSON.parse(xhr.responseText).message === "Недостаточно данных для обучения") 
+                    downloadButton.innerHTML = 'Недостаточно данных для обучения<i class="fa-solid fa-times"></i>';
+                else
+                    downloadButton.innerHTML = 'Error occured<i class="fa-solid fa-times"></i>';
                 downloadButton.classList.add("btn-danger");
                 downloadButton.setAttribute("disabled", true);
                 console.log("Произошла ошибка при выполнении запроса");
             }
+
+            button.classList.add("d-none")
+
+            backButton.innerHTML = "BACK";
+            backButton.setAttribute("type", "button");
+            backButton.classList.add("btn");
+            backButton.classList.add("p-2");
+            backButton.classList.add("mb-2");
+            backButton.classList.add("downloadButton");
+            backButton.style.setProperty('--clr', '#04d9ff')
+            document.getElementById("buttonsSection").append(backButton);
         }
     };
 
+    let gesturesCount = document.getElementById("gesturesCountSelect").value;
+
     // Отправка данных
     xhr.send(JSON.stringify({
+        'gestures_count': 2,
         'time_series': jsonData,
         'username': gestureName,
     }));
 })
 
 backButton.addEventListener('click', (e) => {
+    downloadButton.classList.remove("btn-danger");
+    document.getElementById("gesturesCountDiv").classList.remove("d-none");
     window.location.href = `/test_gesture?username=${gestureName}`;
 });
 
